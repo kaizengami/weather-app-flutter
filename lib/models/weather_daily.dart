@@ -15,7 +15,9 @@ class WeatherDailyModel extends ChangeNotifier {
       final newWeatherDay = WeatherDay(
           maxTemp: day['max_temp'].toInt(),
           minTemp: day['min_temp'].toInt(),
-          datetime: day['datetime']);
+          datetime: day['valid_date'],
+          weatherCode: day['weather']['code']);
+
       print(newWeatherDay.datetime);
       print(newWeatherDay.maxTemp);
       _weatherData.add(newWeatherDay);

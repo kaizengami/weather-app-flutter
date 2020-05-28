@@ -13,7 +13,7 @@ class WeatherDaily extends StatelessWidget {
   Widget build(BuildContext context) {
     test();
     return Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height - 90),
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height - 145),
       child: Column(children: <Widget>[
         ListView.builder(
           shrinkWrap: true,
@@ -23,7 +23,19 @@ class WeatherDaily extends StatelessWidget {
             int maxTemp = weatherData[i].maxTemp;
             int minTemp = weatherData[i].minTemp;
             String datetime = weatherData[i].datetime;
-            return Day(maxTemp: maxTemp, minTemp: minTemp, datetime: datetime);
+            int weatherCode = weatherData[i].weatherCode;
+            return Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(width: 1.0, color: Colors.black38),
+                ),
+              ),
+              child: Day(
+                  maxTemp: maxTemp,
+                  minTemp: minTemp,
+                  datetime: weatherData[i].getDayName(),
+                  weatherCode: weatherCode),
+            );
           },
         )
       ]),
