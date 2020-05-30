@@ -11,6 +11,8 @@ class WeatherDailyModel extends ChangeNotifier {
   int get weatherCount => _weatherData.length;
 
   void createWeatherDailyList(var weatherData) {
+    _weatherData = [];
+
     for (var day in weatherData) {
       final newWeatherDay = WeatherDay(
           maxTemp: day['max_temp'].toInt(),
@@ -18,8 +20,6 @@ class WeatherDailyModel extends ChangeNotifier {
           datetime: day['valid_date'],
           weatherCode: day['weather']['code']);
 
-      print(newWeatherDay.datetime);
-      print(newWeatherDay.maxTemp);
       _weatherData.add(newWeatherDay);
     }
 

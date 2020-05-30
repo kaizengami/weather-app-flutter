@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/models/theme_model.dart';
 import 'package:weather_app/models/weather_daily.dart';
+import 'package:weather_app/models/weather_today.dart';
 import 'package:weather_app/services/location.dart';
 import 'package:weather_app/services/weather.dart';
 import 'package:weather_app/widgets/search.dart';
@@ -21,6 +22,9 @@ class _ForecastScreenState extends State<ForecastScreen> {
   Location location = Location();
   Weather weather = Weather();
   WeatherDailyModel weatherDaily = WeatherDailyModel();
+  WeatherTodayModel weatherToday = WeatherTodayModel();
+  String searchValue = 'Bila Tserkva';
+  bool isDay = true;
 
   void initState() {
     super.initState();
@@ -28,14 +32,29 @@ class _ForecastScreenState extends State<ForecastScreen> {
   }
 
   void getWeather() async {
-    await weather.getCityWeather('Tokyo');
+    print('getWeather');
+    await weather.getCityTodayWeather(searchValue);
+    await weather.getCityDailyWeather(searchValue);
     updateUI();
-    // print(weather.weatherDaily);
+    print(weatherToday.isDay());
+    print(weather.weatherToday);
+  }
+
+  updateSearch(String newValue) {
+    print('updateSearch');
+    setState(() {
+      searchValue = newValue;
+      getWeather();
+    });
   }
 
   void updateUI() {
     setState(() {
       weatherDaily.createWeatherDailyList(weather.weatherDaily['data']);
+      weatherToday.updateWeather(weather.weatherToday['data']);
+      isDay = weatherToday.isDay();
+      print(weatherToday.isDay());
+      print(weather.weatherDaily['data']);
     });
   }
 
@@ -44,7 +63,9 @@ class _ForecastScreenState extends State<ForecastScreen> {
         Provider.of<ThemeModel>(context, listen: false).getThemeType();
     switch (themeType) {
       case ThemeType.Light:
-        return AssetImage("images/bg-night-mobile.png");
+        return isDay
+            ? AssetImage("images/bg-day-mobile.png")
+            : AssetImage("images/bg-night-mobile.png");
       case ThemeType.Dark:
         return AssetImage("images/solid_black.png");
       default:
@@ -69,20 +90,24 @@ class _ForecastScreenState extends State<ForecastScreen> {
               ),
               child: Column(
                 children: <Widget>[
-                  Search(),
+                  Search(
+                    value: searchValue,
+                    updateSearch: updateSearch,
+                  ),
                   SizedBox(
                     height: 150,
                   ),
-                  WeatherToday(),
+                  WeatherToday(weatherToday),
                 ],
               ),
             ),
-            WeatherDaily(weatherDaily)
+            WeatherDaily(
+              weatherDaily: weatherDaily,
+              isDay: weatherToday.isDay(),
+            )
           ],
         ),
       ),
     );
   }
 }
-
-// padding: EdgeInsets.symmetric(horizontal: 24.0),

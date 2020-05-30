@@ -2,43 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/widgets/weather_day.dart';
 
 class WeatherDaily extends StatelessWidget {
-  WeatherDaily(this.weatherDaily);
+  WeatherDaily({this.weatherDaily, this.isDay});
   final weatherDaily;
-
-  void test() {
-    print(weatherDaily.data);
-  }
+  final bool isDay;
 
   @override
   Widget build(BuildContext context) {
-    test();
+    print('Weather Daily!');
     return Padding(
       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height - 145),
-      child: Column(children: <Widget>[
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: weatherDaily.weatherCount,
-          itemBuilder: (context, i) {
-            var weatherData = weatherDaily.data;
-            int maxTemp = weatherData[i].maxTemp;
-            int minTemp = weatherData[i].minTemp;
-            String datetime = weatherData[i].datetime;
-            int weatherCode = weatherData[i].weatherCode;
-            return Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(width: 1.0, color: Colors.black38),
+      child: SingleChildScrollView(
+        child: Column(children: <Widget>[
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: weatherDaily.weatherCount,
+            itemBuilder: (context, i) {
+              var weatherData = weatherDaily.data;
+              int maxTemp = weatherData[i].maxTemp;
+              int minTemp = weatherData[i].minTemp;
+              int weatherCode = weatherData[i].weatherCode;
+              return Container(
+                key: Key(i.toString()),
+                decoration: BoxDecoration(
+                  // color: isDay ? Color(0xFF0a1949) : Colors.transparent,
+                  border: Border(
+                    bottom: BorderSide(width: 1.0, color: Colors.black38),
+                  ),
                 ),
-              ),
-              child: Day(
-                  maxTemp: maxTemp,
-                  minTemp: minTemp,
-                  datetime: weatherData[i].getDayName(),
-                  weatherCode: weatherCode),
-            );
-          },
-        )
-      ]),
+                child: Day(
+                    maxTemp: maxTemp,
+                    minTemp: minTemp,
+                    datetime: weatherData[i].getDayName(),
+                    weatherCode: weatherCode),
+              );
+            },
+          )
+        ]),
+      ),
     );
   }
 }

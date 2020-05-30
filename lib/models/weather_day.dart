@@ -9,8 +9,7 @@ class WeatherDay {
 
   String getDayName() {
     var parsedDate = DateTime.parse(datetime);
-    print(parsedDate);
-    print(DateFormat('EEEE').format(parsedDate));
+
     return DateFormat('EEEE').format(parsedDate);
   }
 }

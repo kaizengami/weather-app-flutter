@@ -21,6 +21,10 @@ class ThemeModel extends ChangeNotifier {
     }
   }
 
+  void setThemeType(ThemeType type) {
+    _themeType = type;
+  }
+
   ThemeType getThemeType() {
     return _themeType;
   }
