@@ -8,7 +8,6 @@ class WeatherDaily extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('Weather Daily!');
     return Padding(
       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height - 145),
       child: SingleChildScrollView(
@@ -27,7 +26,7 @@ class WeatherDaily extends StatelessWidget {
                 decoration: BoxDecoration(
                   // color: isDay ? Color(0xFF0a1949) : Colors.transparent,
                   border: Border(
-                    bottom: BorderSide(width: 1.0, color: Colors.black38),
+                    bottom: BorderSide(width: 2, color: Colors.black38),
                   ),
                 ),
                 child: Day(

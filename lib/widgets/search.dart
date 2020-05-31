@@ -15,17 +15,16 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: TextField(
-        textCapitalization: TextCapitalization.sentences,
-        textAlign: TextAlign.center,
-        decoration: InputDecoration(
-            border: InputBorder.none, hintText: 'Search place...'),
-        controller: TextEditingController()..text = widget.value,
-        onSubmitted: (newValue) {
-          widget.updateSearch(newValue);
-        },
-      ),
+    return TextField(
+      textCapitalization: TextCapitalization.sentences,
+      textAlign: TextAlign.center,
+      style: TextStyle(fontSize: 20.0, letterSpacing: 1),
+      decoration: InputDecoration(
+          border: InputBorder.none, hintText: 'Search place...'),
+      controller: TextEditingController()..text = widget.value,
+      onSubmitted: (newValue) {
+        widget.updateSearch(newValue);
+      },
     );
   }
 }

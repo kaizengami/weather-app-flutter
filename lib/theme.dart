@@ -9,7 +9,9 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
         bodyText1: TextStyle(color: Colors.white, fontFamily: 'Campton'),
         bodyText2: TextStyle(color: Colors.white, fontFamily: 'Campton'),
         subtitle1: TextStyle(color: Colors.white, fontFamily: 'Campton')),
-    appBarTheme: AppBarTheme(color: Colors.white));
+    appBarTheme: AppBarTheme(
+        color: Colors.black,
+        actionsIconTheme: IconThemeData(color: Colors.white)));
 
 ThemeData lightTheme = ThemeData.light().copyWith(
     primaryColor: Color(0xfff5f5f5),
@@ -21,5 +23,5 @@ ThemeData lightTheme = ThemeData.light().copyWith(
         bodyText2: TextStyle(color: Colors.white, fontFamily: 'Campton'),
         subtitle1: TextStyle(color: Colors.white, fontFamily: 'Campton')),
     appBarTheme: AppBarTheme(
-        color: Color(0xff1f655d),
+        color: Color(0xFF0b194a),
         actionsIconTheme: IconThemeData(color: Colors.white)));

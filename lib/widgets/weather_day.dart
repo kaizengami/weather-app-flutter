@@ -111,7 +111,7 @@ class Day extends StatelessWidget {
       child: Ink(
         child: Padding(
           padding:
-              const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 50),
+              const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 34),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[

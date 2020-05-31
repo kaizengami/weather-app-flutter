@@ -2,13 +2,16 @@ import 'package:intl/intl.dart';
 
 class WeatherTodayModel {
   WeatherTodayModel(
-      {this.temp,
+      {this.cityName,
+      this.temp,
       this.weatherCode,
       this.timezone,
       this.datetime,
       this.sunrise,
       this.sunset,
       this.partOfTheDay});
+
+  String cityName;
   int temp = 0;
   String weatherCode;
   String timezone;
@@ -31,11 +34,12 @@ class WeatherTodayModel {
   }
 
   bool isDay() {
-    print(partOfTheDay);
     return partOfTheDay == 'd' ? true : false;
   }
 
   void updateWeather(weatherData) {
+    this.cityName =
+        weatherData[0]['city_name'] + ', ' + weatherData[0]['country_code'];
     this.temp = weatherData[0]['temp'].toInt();
     this.weatherCode = weatherData[0]['weather']['code'];
     this.timezone = weatherData[0]['timezone'];

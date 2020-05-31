@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:weather_app/models/theme_model.dart';
 import 'package:weather_app/models/weather_daily.dart';
 import 'package:weather_app/models/weather_today.dart';
+import 'package:weather_app/screens/settings.dart';
 import 'package:weather_app/services/location.dart';
 import 'package:weather_app/services/weather.dart';
 import 'package:weather_app/widgets/search.dart';
@@ -32,16 +33,12 @@ class _ForecastScreenState extends State<ForecastScreen> {
   }
 
   void getWeather() async {
-    print('getWeather');
     await weather.getCityTodayWeather(searchValue);
     await weather.getCityDailyWeather(searchValue);
     updateUI();
-    print(weatherToday.isDay());
-    print(weather.weatherToday);
   }
 
   updateSearch(String newValue) {
-    print('updateSearch');
     setState(() {
       searchValue = newValue;
       getWeather();
@@ -52,9 +49,8 @@ class _ForecastScreenState extends State<ForecastScreen> {
     setState(() {
       weatherDaily.createWeatherDailyList(weather.weatherDaily['data']);
       weatherToday.updateWeather(weather.weatherToday['data']);
+      searchValue = weatherToday.cityName;
       isDay = weatherToday.isDay();
-      print(weatherToday.isDay());
-      print(weather.weatherDaily['data']);
     });
   }
 
@@ -90,12 +86,35 @@ class _ForecastScreenState extends State<ForecastScreen> {
               ),
               child: Column(
                 children: <Widget>[
-                  Search(
-                    value: searchValue,
-                    updateSearch: updateSearch,
+                  SafeArea(
+                    child: Row(
+                      children: <Widget>[
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 60),
+                            child: Search(
+                              value: searchValue,
+                              updateSearch: updateSearch,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.settings,
+                            color: Colors.white70,
+                          ),
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              SettingsScreen.id,
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(
-                    height: 150,
+                    height: 210,
                   ),
                   WeatherToday(weatherToday),
                 ],

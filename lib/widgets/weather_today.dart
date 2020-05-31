@@ -10,11 +10,15 @@ class WeatherToday extends StatelessWidget {
         weatherToday.temp != null ? weatherToday.temp.toString() : '-';
     return Column(
       children: <Widget>[
-        Text(
-          temp,
-          style: TextStyle(
-            fontSize: 120,
-            fontWeight: FontWeight.bold,
+        Padding(
+          padding: EdgeInsets.only(left: 60),
+          child: Text(
+            '$temp°',
+            style: TextStyle(
+              fontSize: 120,
+              fontWeight: FontWeight.bold,
+              height: 0.60,
+            ),
           ),
         ),
         Text(
